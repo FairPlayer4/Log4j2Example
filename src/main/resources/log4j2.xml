@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--Set status to debug to see if log4j2 is working correctly-->
+<Configuration status="debug" monitorInterval="30"> <!--Remove monitorInterval if you never configure logging at runtime-->
+    <Appenders>
+        <Console name="ConsoleAppender" target="SYSTEM_OUT">
+            <PatternLayout>
+                <pattern>
+                    [%-5level] %d{HH:mm:ss.SSS} [%t] %c{1} - %msg%n <!--[LogLevel] Time [Thread] LoggerName Message NewLine-->
+                </pattern>
+            </PatternLayout>
+        </Console>
+        <!--
+        - The following code is for logging to files
+        - Since the logging shall be fast it is asynchronous 
+        -->
+        <RandomAccessFile name="RandomAccessFileAppenderError" fileName="Logs/ErrorLog.log" immediateFlush="false" append="true">
+            <PatternLayout>
+                <pattern>
+                    [%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n
+                </pattern>
+            </PatternLayout>
+        </RandomAccessFile>
+        <RandomAccessFile name="RandomAccessFileAppenderInfo" fileName="Logs/InfoLog.log" immediateFlush="false" append="false">
+            <PatternLayout>
+                <pattern>
+                    [%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n
+                </pattern>
+            </PatternLayout>
+        </RandomAccessFile>
+        <RandomAccessFile name="RandomAccessFileAppenderTrace" fileName="Logs/TraceLog.log" immediateFlush="false" append="false">
+            <PatternLayout>
+                <pattern>
+                    [%-5level] %d{yyyy-MM-dd HH:mm:ss.SSS} [%t] %c{1} - %msg%n
+                </pattern>
+            </PatternLayout>
+        </RandomAccessFile>
+        <TextPaneAppender name="VisualAppender">
+            <PatternLayout>
+                <pattern>%msg%n</pattern>
+            </PatternLayout>
+        </TextPaneAppender>
+    </Appenders>
+    <Loggers>
+        <!--The default log level is trace that means if you don't explicitly set the level on the AppenderRef it will log -->
+        <!--The default log level is trace | includeLocation is set false because it decreases performance-->
+        <Root level="trace" includeLocation="false">
+            <AppenderRef ref="RandomAccessFileAppenderError" level="error"/>
+            <AppenderRef ref="RandomAccessFileAppenderInfo" level="info"/>
+            <AppenderRef ref="RandomAccessFileAppenderTrace"/>
+            <AppenderRef ref="ConsoleAppender" level="info"/>
+            <AppenderRef ref="VisualAppender" level="trace"/>
+        </Root>
+    </Loggers>
+</Configuration>
