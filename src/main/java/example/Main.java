@@ -1,5 +1,6 @@
 package example;
 
+import config.ParserXML;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -14,6 +15,7 @@ public class Main
         //TODO
         log.info("Hello");
         log2.info("Test");
+        ParserXML.addFileAppender("Test", "Logs/Test.log", true);
         try {
             // Weird bug in Async Loggers if the program does not run long enough
             // TODO

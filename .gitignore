@@ -34,7 +34,6 @@ cmake-build-debug/
 out/
 target/
 Logs/
-AntidoteGitRepo/
 
 # mpeltonen/sbt-idea plugin
 .idea_modules/
